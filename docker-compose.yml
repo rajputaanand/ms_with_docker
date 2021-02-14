@@ -1,0 +1,31 @@
+version: '3'
+services:
+  eureka:
+    build: ./ms_with_docker/ms-eureka-server
+    ports:
+      - "8761:8761"
+  imge:
+    build: ./ms_with_docker/ms-image-service
+    links:
+     - eureka
+    ports:
+      - "8200:8200"
+  auth:
+    build: ./ms_with_docker/ms-auth-service
+    links:
+     - eureka
+    ports:
+      - "9100:9100"
+  gallery:
+    build: ./ms_with_docker/ms-gallary-service
+    links:
+     - eureka
+    ports:
+      - "8100:8100"
+  zuulservice:
+    build: ./ms_with_docker/ms-zuulservice
+    links:
+     - eureka
+    ports:
+      - "8762:8762"
+#https://medium.com/edureka/docker-commands-29f7551498a8  https://github.com/ewolff/microservice/blob/master/microservice-demo/microservice-demo-turbine-server/Dockerfile
